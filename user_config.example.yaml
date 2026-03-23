@@ -1,0 +1,25 @@
+# user_config.yaml
+user_profile:
+  first_name: "Max"
+  last_name: "Mustermann"
+  email: "max.mustermann@example.com"
+  phone: "+4917612345678"
+  current_address: "Musterstraße 1, 10115 Berlin"
+  net_income: 3500 # EUR per month
+  household_size: 1
+  profession: "Software Engineer"
+  pets: "No"
+  wbs_holder: "No"
+
+search_criteria:
+  city: "Berlin"
+  districts: ["Mitte", "Prenzlauer Berg", "Kreuzberg"]
+  max_warmmiete: 1200 # EUR
+  min_area_sqm: 45
+  min_rooms: 2
+  wbs_required: "No"
+
+platform_credentials:
+  gmail_client_id: "YOUR_GMAIL_CLIENT_ID"
+  gmail_client_secret: "YOUR_GMAIL_CLIENT_SECRET"
+  openai_api_key: "YOUR_OPENAI_API_KEY"

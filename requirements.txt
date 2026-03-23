@@ -1,0 +1,13 @@
+playwright==1.42.0
+beautifulsoup4==4.12.3
+requests==2.31.0
+SQLAlchemy==2.0.29
+psycopg2-binary==2.9.9
+pyyaml==6.0.1
+pydantic==2.6.4
+google-api-python-client==2.122.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==1.2.0
+openai==1.14.2
+apscheduler==3.10.4
+python-dotenv==1.0.1
