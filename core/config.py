@@ -4,16 +4,28 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 class UserProfile(BaseModel):
+    # Basic personal data
     first_name: str
     last_name: str
     email: str
     phone: str
-    current_address: str
-    net_income: int
-    household_size: int
-    profession: str
-    pets: str
-    wbs_holder: str
+    # Address components
+    street: str
+    street_number: str
+    zip_code: str
+    city: str
+    address_addition: Optional[str] = None
+    # Additional personal info
+    salutation: Optional[str] = None  # Anrede (Herr/Frau)
+    profession: Optional[str] = None
+    pets: Optional[str] = None
+    wbs_holder: Optional[str] = None
+    # Custom message for application letters
+    custom_message: Optional[str] = None
+    # Application specific fields
+    number_of_persons: Optional[int] = None
+    request_for_self: Optional[str] = None
+    mobile_number: Optional[str] = None
 
 class SearchCriteria(BaseModel):
     city: str

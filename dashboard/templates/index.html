@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>AI Home Hunter Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <h1>AI Home Hunter Dashboard</h1>
+    <div class="controls">
+        <button id="run-scraper">Run Scraper (Workflow A)</button>
+        <button id="run-application">Run Application (Workflow B)</button>
+    </div>
+    <section class="stats">
+        <h2>Statistics</h2>
+        <ul>
+            <li>Found: <span id="stat-found">0</span></li>
+            <li>Applied: <span id="stat-applied">0</span></li>
+            <li>Failed: <span id="stat-failed">0</span></li>
+        </ul>
+    </section>
+    <section class="recent">
+        <h2>Recent Apartments</h2>
+        <table id="apartments-table">
+            <thead>
+                <tr><th>ID</th><th>Address</th><th>Rent (€)</th><th>Status</th><th>Link</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <script>
+        async function refreshStats(){
+            const res = await fetch('/stats');
+            const data = await res.json();
+            document.getElementById('stat-found').textContent = data.found;
+            document.getElementById('stat-applied').textContent = data.applied;
+            document.getElementById('stat-failed').textContent = data.failed;
+        }
+        async function refreshApartments(){
+            const res = await fetch('/apartments');
+            const data = await res.json();
+            const tbody = document.querySelector('#apartments-table tbody');
+            tbody.innerHTML = '';
+            data.forEach(row=>{
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${row.id}</td><td>${row.address}</td><td>${row.rent}</td><td>${row.status}</td><td><a href="${row.url}" target="_blank">Link</a></td>`;
+                tbody.appendChild(tr);
+            });
+        }
+        document.getElementById('run-scraper').addEventListener('click', async()=>{
+            await fetch('/run_scraper', {method:'POST'});
+            setTimeout(()=>{refreshStats(); refreshApartments();}, 5000);
+        });
+        document.getElementById('run-application').addEventListener('click', async()=>{
+            await fetch('/run_application', {method:'POST'});
+            setTimeout(()=>{refreshStats(); refreshApartments();}, 5000);
+        });
+        // Initial load
+        refreshStats();
+        refreshApartments();
+        // Auto refresh every 30 seconds
+        setInterval(()=>{refreshStats(); refreshApartments();}, 30000);
+    </script>
+</body>
+</html>
